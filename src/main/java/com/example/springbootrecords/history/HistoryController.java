@@ -48,7 +48,7 @@ public class HistoryController {
     }
 
     @PostMapping("/deleteEntry/{id}")
-    public String deleteEntry(@PathVariable Integer id, HttpServletResponse response) throws IOException {
+    public String deleteEntry(@PathVariable Integer id) {
         historyEntryRepository.delete(id);
         return "ok";
     }
