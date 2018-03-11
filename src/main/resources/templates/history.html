@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>History</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script src="https://unpkg.com/sweetalert2@7.15.1/dist/sweetalert2.all.js"></script>
+    <script>
+        function deleteEntry(id){
+            swal({
+                title: "Are you sure?",
+                text: "We will delete entry " + id,
+                type: "warning",
+                showCancelButton: true
+            }).then(function (result) {
+                if (result.value) {
+                    $.post("history/deleteEntry/" + id, function (data) {
+                        location.reload();
+                    });
+                }
+            });
+        }
+
+        function editEntry(id){
+            swal("We will edit entry " + id);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <h1>Patient records</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">DNI</th>
+                                <th scope="col">Observations</th>
+                                <th scope="col">Edit</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="entry:${entries}">
+                                <th scope="row" th:text="${entry.id}"></th>
+                                <td th:text="${entry.date}"></td>
+                                <td th:text="${entry.patientDni}"></td>
+                                <td th:text="${entry.observations}"></td>
+                                <td>
+                                    <button class="btn btn-info" th:onclick="'editEntry(' + ${entry.id} + ')'">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger" th:onclick="'deleteEntry(' + ${entry.id} + ')'">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
