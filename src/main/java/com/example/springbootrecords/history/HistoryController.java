@@ -48,8 +48,8 @@ public class HistoryController {
     }
 
     @PostMapping("/deleteEntry/{id}")
-    public String deleteEntry(@PathVariable Integer id) {
-        historyEntryRepository.delete(id);
+    public String deleteEntry(@PathVariable int id) {
+        historyEntryRepository.deleteById(id);
         return "ok";
     }
 
