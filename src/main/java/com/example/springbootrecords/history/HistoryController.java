@@ -53,4 +53,18 @@ public class HistoryController {
         return "ok";
     }
 
+
+    /*
+    @RequestMapping(value = "/addNewEntry", method = RequestMethod.POST)
+    @ResponseBody
+    public String saveEntry(@RequestParam(value="dni", required=true) String dniPatient,
+                            @RequestParam(value="observation", required=true) String observationPatient){
+        HistoryEntry historyEntry = new HistoryEntry();
+        historyEntry.setDate(new Date());
+        historyEntry.setObservations(observationPatient);
+        historyEntry.setPatientDni(dniPatient);
+        historyEntryRepository.save(historyEntry);
+        return "ok";
+    }*/
+
 }
