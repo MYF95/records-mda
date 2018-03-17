@@ -53,18 +53,14 @@ public class HistoryController {
         return "ok";
     }
 
-
-    /*
-    @RequestMapping(value = "/addNewEntry", method = RequestMethod.POST)
-    @ResponseBody
-    public String saveEntry(@RequestParam(value="dni", required=true) String dniPatient,
-                            @RequestParam(value="observation", required=true) String observationPatient){
-        HistoryEntry historyEntry = new HistoryEntry();
+    @PostMapping("/modifyEntry/{id}/{dni}/{observations}")
+    public ResponseEntity<?> modifyEntry(@PathVariable int id, @PathVariable String dni, @PathVariable String observations){
+        HistoryEntry historyEntry = historyEntryRepository.getOne(id);
         historyEntry.setDate(new Date());
-        historyEntry.setObservations(observationPatient);
-        historyEntry.setPatientDni(dniPatient);
+        historyEntry.setObservations(observations);
+        historyEntry.setPatientDni(dni);
         historyEntryRepository.save(historyEntry);
-        return "ok";
-    }*/
+        return ResponseEntity.ok().build();
+    }
 
 }

@@ -13,9 +13,12 @@
         function deleteEntry(id){
             swal({
                 title: "Are you sure?",
-                text: "We will delete entry " + id,
+                text: "Once deleted, you will not be able to recover this entry! ID: " + id,
                 type: "warning",
-                showCancelButton: true
+                icon: "warning",
+                buttons: true,
+                showCancelButton: true,
+                dangerMode: true
             }).then(function (result) {
                 if (result.value) {
                     $.post("history/deleteEntry/" + id, function (data) {
@@ -27,7 +30,46 @@
 
 
         function editEntry(id){
-            swal("We will edit entry " + id);
+            swal({
+                title: 'Fill the following fields! Entry ID: ' + id,
+                html:
+                '<input id="swal-input1" class="swal2-input" placeholder="DNI">' +
+                '<input id="swal-input2" class="swal2-input" placeholder="Observation">',
+                showCancelButton: true,
+                focusConfirm: false,
+                type: "warning",
+                preConfirm: function () {
+                    return new Promise(function (resolve) {
+                        resolve([
+                            $('#swal-input1').val(),
+                            $('#swal-input2').val()
+                        ])
+                    })
+                }
+            }).then(function (result) {
+                var dni = document.getElementById('swal-input1').value;
+                var obs = document.getElementById('swal-input2').value;
+                $.post("history/modifyEntry/" + id + "/" + dni + "/" + obs, function (data) {
+                    location.reload();
+                });
+            }).catch(swal.noop)
+        }
+
+
+        function addEntry(dni,obs){
+            swal({
+                title: "Are you sure?",
+                text: "Are you sure you want to add the entry?",
+                type: "info",
+                buttons: ["Oh noez!", "Aww yiss!"],
+                showCancelButton: true
+            }).then(function (result) {
+                if (result.value) {
+                    $.post("history/addEntry/" + dni + "/" + obs, function (data) {
+                        location.reload();
+                    });
+                }
+            });
         }
     </script>
 </head>
@@ -35,19 +77,29 @@
     <div class="container">
         <div class="row">
             <div class="col-sm">
-                <h1>Patient records</h1>
+                <h1 style="border-bottom: 1px solid black;">Patient records</h1>
             </div>
         </div>
 
 
-        <!--
-        <form method="POST" action="http://localhost:8080/history/addNewEntry">
-            <input type="text" id="dni" name="dni" />
-            <input type="text" id="observation" name="observation" />
-            <input type="submit" value="Register"/>
-        </form>
-        -->
-
+        <div class="row" style="margin-top: 2%;">
+            <div class="col-sm">
+                <h3>Add new entry</h3>
+            </div>
+        </div>
+        <div class="form-row" style="margin-bottom: 2%;">
+            <div class="form-group col-md-4">
+                <label for="dni">DNI</label>
+                <input type="text" class="form-control" id="dni" name="dni" placeholder="DNI">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="obs">Observation</label>
+                <input type="text" class="form-control" id="obs" name="obs" placeholder="Observation">
+            </div>
+            <div class="form-group col-md-4" style="margin-top: auto;">
+                <button class="btn btn-success"  onclick="addEntry(document.getElementById('dni').value,document.getElementById('obs').value)"><i class="fa fa-plus"> ADD ENTRY</i></button>
+            </div>
+        </div>
 
 
         <div class="row">
