@@ -3,17 +3,17 @@ Aplicación de historial médico para Metodologías de Desarrollo Ágil
 
 Tecnologías utilizadas:
 
-Java
-Spring Boot MVC
-Thymeleaf
-Heroku 
-Postgres
-Github
-MySQL
-HTML
-CSS
-Bootstrap
-JavaScript
+Java,
+Spring Boot MVC,
+Thymeleaf,
+Heroku,
+Postgres,
+Github,
+MySQL,
+HTML,
+CSS,
+Bootstrap,
+JavaScript,
 ...
 
 Grupo formado por:
