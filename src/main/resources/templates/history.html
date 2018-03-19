@@ -29,12 +29,12 @@
         }
 
 
-        function editEntry(id){
+        function editEntry(id, dni){
             swal({
                 title: 'Fill the following fields! Entry ID: ' + id,
                 html:
-                '<input id="swal-input1" class="swal2-input" placeholder="DNI">' +
-                '<input id="swal-input2" class="swal2-input" placeholder="Observation">',
+                '<input id="swal-input1" class="swal2-input" placeholder='+ dni +'>' +
+                '<input id="swal-input2" class="swal2-input" placeholder="New observation">',
                 showCancelButton: true,
                 focusConfirm: false,
                 type: "warning",
@@ -123,21 +123,21 @@
                                 <td th:text="${entry.patientDni}"></td>
                                 <td th:text="${entry.observations}"></td>
                                 <td>
-                                    <button class="btn btn-info" th:onclick="'editEntry(' + ${entry.id} + ')'">
+                                    <button class="btn btn-info" th:onclick="'editEntry(' + ${entry.id} + ', ' + ${entry.patientDni} +')'"> <!-- Peta al pasar el entry.observations ni idea de por qué-->
                                         <i class="fa fa-pencil"></i>
                                     </button>
-                                </td>
-                                <td>
-                                    <button class="btn btn-danger" th:onclick="'deleteEntry(' + ${entry.id} + ')'">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-danger" th:onclick="'deleteEntry(' + ${entry.id} + ')'">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</body>
-</html>
+    </body>
+    </html>
