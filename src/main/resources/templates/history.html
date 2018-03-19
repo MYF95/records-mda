@@ -29,12 +29,12 @@
         }
 
 
-        function editEntry(id, dni){
+        function editEntry(id, dni, obs){
             swal({
                 title: 'Fill the following fields! Entry ID: ' + id,
                 html:
-                '<input id="swal-input1" class="swal2-input" placeholder='+ dni +'>' +
-                '<input id="swal-input2" class="swal2-input" placeholder="New observation">',
+                '<input id="swal-input1" class="swal2-input" placeholder="'+ dni +'">' +
+                '<input id="swal-input2" class="swal2-input" placeholder="'+ obs +'">',
                 showCancelButton: true,
                 focusConfirm: false,
                 type: "warning",
@@ -57,6 +57,7 @@
 
 
         function addEntry(dni,obs){
+            if (!validateForm(dni,obs)) return;
             swal({
                 title: "Are you sure?",
                 text: "Are you sure you want to add the entry?",
@@ -71,6 +72,15 @@
                 }
             });
         }
+
+        function validateForm(dni,obs){
+            regexDNI = /^\d{8}[a-zA-Z]$/;
+            if(regexDNI.test(dni) && obs.length >= 5 && obs.length <= 40){
+                return true;
+            }
+            return false;
+        }
+
     </script>
 </head>
 <body>
@@ -87,20 +97,20 @@
                 <h3>Add new entry</h3>
             </div>
         </div>
+
         <div class="form-row" style="margin-bottom: 2%;">
             <div class="form-group col-md-4">
                 <label for="dni">DNI</label>
-                <input type="text" class="form-control" id="dni" name="dni" placeholder="DNI">
+                <input type="text" class="form-control" id="dni" name="dni" placeholder="DNI" pattern="[0-9]{8}[A-Za-z]{1}" title="Example: 12345678S" required>
             </div>
             <div class="form-group col-md-4">
                 <label for="obs">Observation</label>
-                <input type="text" class="form-control" id="obs" name="obs" placeholder="Observation">
+                <input type="text" class="form-control" id="obs" name="obs" placeholder="Observation" minlength="5" maxlength="40" title="Must be between 5 and 40 characters" required>
             </div>
             <div class="form-group col-md-4" style="margin-top: auto;">
                 <button class="btn btn-success"  onclick="addEntry(document.getElementById('dni').value,document.getElementById('obs').value)"><i class="fa fa-plus"> ADD ENTRY</i></button>
             </div>
         </div>
-
 
         <div class="row">
             <div class="col-sm">
@@ -116,13 +126,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="entry:${entries}">
+
+                        <!-- Cuando los ${entry.*} tienen letras o espacios no se reconocen, no se pueden enviar al editEntry()}
+
+                            HAY QUE ARREGLARLO
+                        -->
+                        <tr th:each="entry:${entries}">
                                 <th scope="row" th:text="${entry.id}"></th>
                                 <td th:text="${entry.date}"></td>
                                 <td th:text="${entry.patientDni}"></td>
                                 <td th:text="${entry.observations}"></td>
                                 <td>
-                                    <button class="btn btn-info" th:onclick="'editEntry(' + ${entry.id} + ', ' + ${entry.patientDni} +')'"> <!-- Peta al pasar el entry.observations ni idea de por qué-->
+                                    <button class="btn btn-info" th:onclick="'editEntry(' + ${entry.id} + ',' + ${entry.patientDni} + ',' + ${entry.observations} + ')'">
                                         <i class="fa fa-pencil"></i>
                                     </button>
                                     <button class="btn btn-danger" th:onclick="'deleteEntry(' + ${entry.id} + ')'">
