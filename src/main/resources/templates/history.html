@@ -112,8 +112,7 @@
                                 <th scope="col">Date</th>
                                 <th scope="col">DNI</th>
                                 <th scope="col">Observations</th>
-                                <th scope="col">Edit</th>
-                                <th scope="col">Delete</th>
+                                <th scope="col">Edit & Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -126,11 +125,9 @@
                                     <button class="btn btn-info" th:onclick="'editEntry(' + ${entry.id} + ', ' + ${entry.patientDni} +')'"> <!-- Peta al pasar el entry.observations ni idea de por qué-->
                                         <i class="fa fa-pencil"></i>
                                     </button>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-danger" th:onclick="'deleteEntry(' + ${entry.id} + ')'">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
+                                    <button class="btn btn-danger" th:onclick="'deleteEntry(' + ${entry.id} + ')'">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
                                     </td>
                                 </tr>
                             </tbody>
