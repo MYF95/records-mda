@@ -118,7 +118,6 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
                                 <th scope="col">Date</th>
                                 <th scope="col">DNI</th>
                                 <th scope="col">Observations</th>
@@ -132,7 +131,6 @@
                             HAY QUE ARREGLARLO
                         -->
                         <tr th:each="entry:${entries}">
-                                <th scope="row" th:text="${entry.id}"></th>
                                 <td th:text="${entry.date}"></td>
                                 <td th:text="${entry.patientDni}"></td>
                                 <td th:text="${entry.observations}"></td>
