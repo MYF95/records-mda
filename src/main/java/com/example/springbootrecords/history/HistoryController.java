@@ -3,16 +3,9 @@ package com.example.springbootrecords.history;
 import com.example.springbootrecords.history.model.HistoryEntry;
 import com.example.springbootrecords.history.model.HistoryEntryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
