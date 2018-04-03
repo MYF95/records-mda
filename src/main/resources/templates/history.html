@@ -29,12 +29,12 @@
         }
 
 
-        function editEntry(id, dni, obs){
+        function editEntry(id, dnip, obsp){
             swal({
                 title: 'Fill the following fields! Entry ID: ' + id,
                 html:
-                '<input id="swal-input1" class="swal2-input" placeholder="'+ dni +'">' +
-                '<input id="swal-input2" class="swal2-input" placeholder="'+ obs +'">',
+                '<input id="swal-input1" class="swal2-input" pattern="[0-9]{8}[A-Za-z]{1}" title="Example: 12345678S" required placeholder="'+ dnip +'" value="'+ dnip + '">' +
+                '<input id="swal-input2" class="swal2-input" minlength="5" maxlength="40" title="Must be between 5 and 40 characters" required placeholder="'+ obsp +'" value="'+ obsp + '">',
                 showCancelButton: true,
                 focusConfirm: false,
                 type: "warning",
@@ -49,6 +49,7 @@
             }).then(function (result) {
                 var dni = document.getElementById('swal-input1').value;
                 var obs = document.getElementById('swal-input2').value;
+                if (!validateForm(dni,obs)) return;
                 $.post("history/modifyEntry/" + id + "/" + dni + "/" + obs, function (data) {
                     location.reload();
                 });
@@ -113,6 +114,12 @@
         </div>
 
         <div class="row">
+            <div id ="errors">
+
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-sm">
                 <div class="table-responsive">
                     <table class="table table-bordered">
@@ -126,16 +133,13 @@
                         </thead>
                         <tbody>
 
-                        <!-- Cuando los ${entry.*} tienen letras o espacios no se reconocen, no se pueden enviar al editEntry()}
 
-                            HAY QUE ARREGLARLO
-                        -->
                         <tr th:each="entry:${entries}">
                                 <td th:text="${entry.date}"></td>
                                 <td th:text="${entry.patientDni}"></td>
                                 <td th:text="${entry.observations}"></td>
                                 <td>
-                                    <button class="btn btn-info" th:onclick="'editEntry(' + ${entry.id} + ',' + ${entry.patientDni} + ',' + ${entry.observations} + ')'">
+                                    <button class="btn btn-info" th:onclick="'editEntry(\''+${entry.id}+ '\',\''+${entry.patientDni}+'\',\''+${entry.observations}+'\')'">
                                         <i class="fa fa-pencil"></i>
                                     </button>
                                     <button class="btn btn-danger" th:onclick="'deleteEntry(' + ${entry.id} + ')'">
