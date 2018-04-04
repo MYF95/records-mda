@@ -161,7 +161,8 @@
 
 
                         <tr th:each="entry:${entries}">
-                                <td th:text="${entry.date}"></td>
+                                <!-- formato: 'dd-MM-yyyy' = 04-04-2018; formato: 'dd-MMM-yyyy' = 04-abr-2018 -->
+                                <td th:text="${#dates.format(entry.date, 'dd-MMM-yyyy')}"></td>
                                 <td th:text="${entry.patientDni}"></td>
                                 <td th:text="${entry.observations}"></td>
                                 <td>
