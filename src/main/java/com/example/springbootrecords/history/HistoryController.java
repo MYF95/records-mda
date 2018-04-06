@@ -7,10 +7,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+
+import java.util.*;
 
 @RestController
 @RequestMapping("/history")
@@ -71,8 +69,15 @@ public class HistoryController {
     @GetMapping("/date/{date}")
     public ModelAndView getSearchDate(@DateTimeFormat(pattern = "yyyy-MM-dd")@PathVariable Date date){
         ModelAndView modelAndView = new ModelAndView("perfil");
+
+        Date dt = date;
+        Calendar c = Calendar.getInstance();
+        c.setTime(dt);
+        c.add(Calendar.DATE, 1);
+        dt = c.getTime();
+
         List<HistoryEntry> historyEntries =
-                Optional.ofNullable(historyEntryRepository.findAllByDateIsGreaterThanEqual(date))
+                Optional.ofNullable(historyEntryRepository.findAllByDateBetween(date,dt))
                         .orElse(new ArrayList<>());
         modelAndView.addObject("entries", historyEntries);
         return modelAndView;

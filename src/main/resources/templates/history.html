@@ -22,7 +22,7 @@
                 dangerMode: true
             }).then(function (result) {
                 if (result.value) {
-                    $.post("history/deleteEntry/" + id, function (data) {
+                    $.post("/history/deleteEntry/" + id, function (data) {
                         location.reload();
                     });
                 }
@@ -51,7 +51,7 @@
                 var dni = document.getElementById('swal-input1').value;
                 var obs = document.getElementById('swal-input2').value;
                 if (!validateForm(dni,obs)) return;
-                $.post("history/modifyEntry/" + id + "/" + dni + "/" + obs, function (data) {
+                $.post("/history/modifyEntry/" + id + "/" + dni + "/" + obs, function (data) {
                     location.reload();
                 });
             }).catch(swal.noop)
@@ -68,7 +68,7 @@
                 showCancelButton: true
             }).then(function (result) {
                 if (result.value) {
-                    $.post("history/addEntry/" + dni + "/" + obs, function (data) {
+                    $.post("/history/addEntry/" + dni + "/" + obs, function (data) {
                         location.reload();
                     });
                 }
@@ -77,11 +77,11 @@
 
         function showEntries(dni){
             if (!validateDni(dni)) return;
-            window.location.href = '../history/'+dni;
+            window.location.href = '/history/'+dni;
         }
 
         function showEntriesDate(date){
-            window.location.href = '../history/date/'+date;
+            window.location.href = '/history/date/'+date;
         }
 
         function validateForm(dni,obs){

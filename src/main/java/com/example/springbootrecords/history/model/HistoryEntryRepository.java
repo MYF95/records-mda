@@ -8,5 +8,5 @@ import java.util.List;
 public interface HistoryEntryRepository extends JpaRepository<HistoryEntry, Integer>{
     List<HistoryEntry> findAll();
     List<HistoryEntry> findAllByPatientDniOrderByDateDesc(String patientDni);
-    List<HistoryEntry> findAllByDateIsGreaterThanEqual(Date date);
+    List<HistoryEntry> findAllByDateBetween(Date date, Date date2);
 }
