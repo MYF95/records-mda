@@ -1,5 +1,7 @@
 package com.example.springbootrecords.history.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -13,6 +15,7 @@ public class HistoryEntry {
 
     private String observations;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
 
     public Integer getId() {

@@ -3,6 +3,7 @@ package com.example.springbootrecords.history;
 import com.example.springbootrecords.history.model.HistoryEntry;
 import com.example.springbootrecords.history.model.HistoryEntryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -54,6 +55,27 @@ public class HistoryController {
         historyEntry.setPatientDni(dni);
         historyEntryRepository.save(historyEntry);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{dni}")
+    public ModelAndView getSearch(@PathVariable String dni){
+        ModelAndView modelAndView = new ModelAndView("perfil");
+        List<HistoryEntry> historyEntries =
+                Optional.ofNullable(historyEntryRepository.findAllByPatientDniOrderByDateDesc(dni))
+                        .orElse(new ArrayList<>());
+        modelAndView.addObject("entries", historyEntries);
+        return modelAndView;
+    }
+
+
+    @GetMapping("/date/{date}")
+    public ModelAndView getSearchDate(@DateTimeFormat(pattern = "yyyy-MM-dd")@PathVariable Date date){
+        ModelAndView modelAndView = new ModelAndView("perfil");
+        List<HistoryEntry> historyEntries =
+                Optional.ofNullable(historyEntryRepository.findAllByDateIsGreaterThanEqual(date))
+                        .orElse(new ArrayList<>());
+        modelAndView.addObject("entries", historyEntries);
+        return modelAndView;
     }
 
 }
