@@ -1,0 +1,33 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:fragment="header-css">
+        <!-- this is header-css -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <style>
+            footer{
+                margin-top:60px;
+            }
+        </style>
+    </div>
+</head>
+<body>
+<div th:fragment="header">
+    <!-- this is header -->
+    <div class="masthead clearfix">
+        <div class="inner">
+            <h3 class="masthead-brand">MDAYAS</h3>
+            <nav class="nav nav-masthead">
+                <a class="nav-link active" th:href="@{/}">HOME</a>
+                <a class="nav-link" href="https://github.com/MYF95/records-mda">Github</a>
+                <a class="nav-link" href="https://dashboard.heroku.com/apps">Heroku</a>
+                <a class="nav-link" th:href="@{/about}">About</a>
+            </nav>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

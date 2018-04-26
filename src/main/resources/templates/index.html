@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>MDAYAS</title>
@@ -153,9 +153,10 @@
                 <div class="inner">
                     <h3 class="masthead-brand">MDAYAS</h3>
                     <nav class="nav nav-masthead">
-                        <a class="nav-link active" href="https://medic-records.herokuapp.com/">HOME</a>
+                        <a class="nav-link active" th:href="@{/}">HOME</a>
                         <a class="nav-link" href="https://github.com/MYF95/records-mda">Github</a>
                         <a class="nav-link" href="https://dashboard.heroku.com/apps">Heroku</a>
+                        <a class="nav-link" th:href="@{/about}">About</a>
                     </nav>
                 </div>
             </div>
@@ -164,7 +165,7 @@
                 <h1 class="cover-heading">Grupo MDAYAS <br> HISTORIAL MÉDICO.</h1>
                 <p class="lead">Proyecto de implementación de un historial médico usando: IntelliJ IDEA, SpringBoot & more.</p>
                 <p class="lead">
-                    <a href="https://medic-records.herokuapp.com/history" class="btn btn-lg btn-secondary">Historial médico</a>
+                    <a th:href="@{/login}" class="btn btn-lg btn-secondary">Historial médico</a>
                 </p>
             </div>
 
