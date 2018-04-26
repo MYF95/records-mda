@@ -3,18 +3,21 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 </head>
-<body>
+<div class="site-wrapper">
+
+    <div class="site-wrapper-inner">
+
+        <div class="cover-container">
 <div th:fragment="footer">
 
     <div class="container">
 
         <footer>
             <!-- this is footer -->
-            © 2018 MDAYAS
+            <p><a href="">© 2018 MDAYAS</a> - HISTORY ENTRY - MDA</p>
             <span sec:authorize="isAuthenticated()">
                 | Logged user: <span sec:authentication="name"></span> |
                 Roles: <span sec:authentication="principal.authorities"></span> |
-                <a th:href="@{/logout}">Sign Out</a>
             </span>
 
             <script type="text/javascript"
@@ -23,6 +26,13 @@
         </footer>
     </div>
 
+
+
+
 </div>
+</div>
+</div>
+</div>
+
 </body>
 </html>

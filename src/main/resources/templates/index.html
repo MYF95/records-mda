@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>MDAYAS</title>
@@ -157,6 +157,11 @@
                         <a class="nav-link" href="https://github.com/MYF95/records-mda">Github</a>
                         <a class="nav-link" href="https://dashboard.heroku.com/apps">Heroku</a>
                         <a class="nav-link" th:href="@{/about}">About</a>
+                        <!--<span sec:authorize="isAuthenticated()">
+                            <a class="nav-link" th:href="">Logged user: <span sec:authentication="name"></span>t</a>
+                            <a class="nav-link" th:href="">Roles: <span sec:authentication="principal.authorities"></span></a>
+                            <a class="nav-link" th:href="@{/logout}">Sign Out</a>
+                        </span>-->
                     </nav>
                 </div>
             </div>

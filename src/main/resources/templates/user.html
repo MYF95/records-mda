@@ -1,27 +1,92 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <div th:replace="fragments/header :: header-css"/>
 </head>
 <body>
 
-<div th:replace="fragments/header :: header"/>
+<div class="site-wrapper">
 
-<div class="container">
+    <div class="site-wrapper-inner">
 
-    <div class="starter-template">
-        <h1>User page (Spring Security protected)</h1>
+        <div class="cover-container">
 
-        <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
+            <div class="masthead clearfix">
+                <div class="inner">
+                    <h3 class="masthead-brand">MDAYAS</h3>
+                    <nav class="nav nav-masthead">
+                        <a class="nav-link" th:href="@{/}">HOME</a>
+                        <a class="nav-link" href="https://github.com/MYF95/records-mda">Github</a>
+                        <a class="nav-link" href="https://dashboard.heroku.com/apps">Heroku</a>
+                        <a class="nav-link" th:href="@{/about}">About</a>
+                        <a class="nav-link" th:href="@{/logout}">Sign Out</a>
+                    </nav>
+                </div>
+            </div>
 
+
+            <div class="inner cover">
+                <h2 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h2>
+            </div>
+
+            <div class="row">
+                <div class="col-sm">
+                    <ul th:each="item : ${userinfo}">
+                        <li th:text="${item.patientDni}"></li>
+                        <li th:text="${item.nss}"></li>
+                        <li th:text="${item.name}"></li>
+                        <li th:text="${item.surname}"></li>
+                        <li th:text="${item.gender}"></li>
+                        <li th:text="${item.age}"></li>
+                        <li th:text="${item.ocupation}"></li>
+                        <li th:text="${item.tlf}"></li>
+                        <li th:text="${item.house}"></li>
+                        <li th:text="${item.observations}"></li>
+                        <li th:text="${item.diseases}"></li>
+                        <li th:text="${item.allergies}"></li>
+                        <li th:text="${#dates.format(item.birthday, 'dd-MMM-yyyy')}"></li>
+                        <li th:text="${#dates.format(item.registerdate, 'dd-MMM-yyyy')}"></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">DNI</th>
+                                <th scope="col">Observations</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+
+                            <tr th:each="entry:${userentries}">
+                                <!-- formato: 'dd-MM-yyyy' = 04-04-2018; formato: 'dd-MMM-yyyy' = 04-abr-2018 -->
+                                <td th:text="${#dates.format(entry.date, 'dd-MMM-yyyy')}"></td>
+                                <td th:text="${entry.patientDni}"></td>
+                                <td th:text="${entry.observations}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="mastfoot">
+                <div class="inner">
+                    <div th:replace="fragments/footer :: footer"/>
+                </div>
+            </div>
+
+        </div>
     </div>
-
 </div>
-<!-- /.container -->
-<div th:replace="fragments/footer :: footer"/>
 
 </body>
 </html>
