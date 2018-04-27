@@ -21,11 +21,15 @@
                         <a class="nav-link" href="https://github.com/MYF95/records-mda">Github</a>
                         <a class="nav-link" href="https://dashboard.heroku.com/apps">Heroku</a>
                         <a class="nav-link" th:href="@{/about}">About</a>
+                        <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
+                        <a class="nav-link" sec:authorize="hasRole('ROLE_USER')" th:href="@{/user}">History Entries</a>
+                        <a class="nav-link" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/history}">History Entries</a>
+                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
                     </nav>
                 </div>
             </div>
 
-        <div class="inner cover">
+        <div class="inner cover" sec:authorize="isAnonymous()">
             <div>
                 <form th:action="@{/login}" method="post">
                     <fieldset>
@@ -53,14 +57,20 @@
 
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6">
-                                <input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign In"/>
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div><input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign In"/></div>
                             </div>
                         </div>
                     </fieldset>
                 </form>
             </div>
+        </div>
+        <div sec:authorize="isAuthenticated()">
+            <h1 class="cover-heading">You are already Logged In!</h1>
+            <p class="lead">
+                <a th:href="@{/logout}" class="btn btn-lg btn-secondary">Logout</a>
+            </p>
         </div>
         <div class="mastfoot">
             <div class="inner">

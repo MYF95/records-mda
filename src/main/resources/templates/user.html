@@ -2,6 +2,56 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <div th:replace="fragments/header :: header-css"/>
+    <style>
+        body{
+            color: #000000 !important;
+            /*text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);*/
+        }
+        h2,h3{
+            color: white;
+        }
+        .margenes{
+            margin-top: 10%;
+            margin-bottom: 10%;
+        }
+        .margenes-peq{
+            margin-top: 5%;
+            margin-bottom: 5%;
+        }
+        @media (min-width: 40em) {
+            /* Pull out the header and footer */
+            .masthead {
+                position: relative !important;
+                top: 0;
+            }
+            .mastfoot {
+                position: relative !important;
+                bottom: 0;
+            }
+            /* Start the vertical centering */
+            .site-wrapper-inner {
+                vertical-align: middle;
+            }
+            /* Handle the widths */
+            .masthead,
+            .mastfoot,
+            .cover-container {
+                width: 100%; /* Must be percentage or pixels for horizontal alignment */
+            }
+            .padre {
+                text-align: center;
+                width: 100%;
+            }
+
+            .hijo {
+                display: inline-block;
+            }
+        }
+
+        label{
+            color: white;
+        }
+    </style>
 </head>
 <body>
 
@@ -9,52 +59,130 @@
 
     <div class="site-wrapper-inner">
 
-        <div class="cover-container">
+        <div class="container">
 
-            <div class="masthead clearfix">
-                <div class="inner">
-                    <h3 class="masthead-brand">MDAYAS</h3>
-                    <nav class="nav nav-masthead">
-                        <a class="nav-link" th:href="@{/}">HOME</a>
-                        <a class="nav-link" href="https://github.com/MYF95/records-mda">Github</a>
-                        <a class="nav-link" href="https://dashboard.heroku.com/apps">Heroku</a>
-                        <a class="nav-link" th:href="@{/about}">About</a>
-                        <a class="nav-link" th:href="@{/logout}">Sign Out</a>
-                    </nav>
+            <div class="row cover-container">
+                <div class="masthead clearfix">
+                    <div class="inner">
+                        <h3 class="masthead-brand">MDAYAS</h3>
+                        <nav class="nav nav-masthead">
+                            <a class="nav-link" th:href="@{/}">HOME</a>
+                            <a class="nav-link" href="https://github.com/MYF95/records-mda">Github</a>
+                            <a class="nav-link" href="https://dashboard.heroku.com/apps">Heroku</a>
+                            <a class="nav-link" th:href="@{/about}">About</a>
+                            <a class="nav-link" th:href="@{/user}">History Entries</a>
+                            <a class="nav-link" th:href="@{/logout}">Logout</a>
+                        </nav>
+                    </div>
                 </div>
             </div>
-
-
-            <div class="inner cover">
-                <h2 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h2>
+            <div class="margenes-peq"></div>
+            <div class="inner cover padre row cover-container">
+                <div class="hijo" style="margin: 0 auto;">
+                    <h2 th:inline="text">Records of patient: [[${#httpServletRequest.remoteUser}]]</h2>
+                </div>
             </div>
+            <div class="margenes-peq"></div>
+            <div class="row">
+                <div class="col-sm">
+                    <div class="table-responsive table">
+                        <table class="table table-bordered">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Field</th>
+                                <th scope="col">User information</th>
+                            </tr>
+                            </thead>
+                            <tbody>
 
+                            <tr th:each="item : ${userinfo}">
+                                <td th:text="DNI"></td>
+                                <td th:text="${item.patientDni}"></td>
+                            </tr>
+                            <tr th:each="item : ${userinfo}">
+                                <td th:text="NSS"></td>
+                                <td th:text="${item.nss}"></td>
+                            </tr>
+                            <tr th:each="item : ${userinfo}">
+                                <td th:text="Name"></td>
+                                <td th:text="${item.name}"></td>
+                            </tr>
+                            <tr th:each="item : ${userinfo}">
+                                <td th:text="Surname"></td>
+                                <td th:text="${item.surname}"></td>
+                            </tr>
+                            <tr th:each="item : ${userinfo}">
+                                <td th:text="Gender"></td>
+                                <td th:text="${item.gender}"></td>
+                            </tr>
+                            <tr th:each="item : ${userinfo}">
+                                <td th:text="Age"></td>
+                                <td th:text="${item.age}"></td>
+                            </tr>
+                            <tr th:each="item : ${userinfo}">
+                                <td th:text="Ocupation"></td>
+                                <td th:text="${item.ocupation}"></td>
+                            </tr>
+                            <tr th:each="item : ${userinfo}">
+                                <td th:text="TLF"></td>
+                                <td th:text="${item.tlf}"></td>
+                            </tr>
+                            <tr th:each="item : ${userinfo}">
+                                <td th:text="Adress"></td>
+                                <td th:text="${item.house}"></td>
+                            </tr>
+                            <tr th:each="item : ${userinfo}">
+                                <td th:text="Observations"></td>
+                                <td th:text="${item.observations}"></td>
+                            </tr>
+                            <tr th:each="item : ${userinfo}">
+                                <td th:text="Diseases"></td>
+                                <td th:text="${item.diseases}"></td>
+                            </tr>
+                            <tr th:each="item : ${userinfo}">
+                                <td th:text="Allergies"></td>
+                                <td th:text="${item.allergies}"></td>
+                            </tr>
+                            <tr th:each="item : ${userinfo}">
+                                <td th:text="Birthday"></td>
+                                <td th:text="${#dates.format(item.birthday, 'dd-MMM-yyyy')}"></td>
+                            </tr>
+                            <tr th:each="item : ${userinfo}">
+                                <td th:text="Register"></td>
+                                <td th:text="${#dates.format(item.registerdate, 'dd-MMM-yyyy')}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="margenes"></div>
+            <!--
             <div class="row">
                 <div class="col-sm">
                     <ul th:each="item : ${userinfo}">
-                        <li th:text="${item.patientDni}"></li>
-                        <li th:text="${item.nss}"></li>
-                        <li th:text="${item.name}"></li>
-                        <li th:text="${item.surname}"></li>
-                        <li th:text="${item.gender}"></li>
-                        <li th:text="${item.age}"></li>
-                        <li th:text="${item.ocupation}"></li>
-                        <li th:text="${item.tlf}"></li>
-                        <li th:text="${item.house}"></li>
-                        <li th:text="${item.observations}"></li>
-                        <li th:text="${item.diseases}"></li>
-                        <li th:text="${item.allergies}"></li>
-                        <li th:text="${#dates.format(item.birthday, 'dd-MMM-yyyy')}"></li>
-                        <li th:text="${#dates.format(item.registerdate, 'dd-MMM-yyyy')}"></li>
+                        <td th:text="${item.patientDni}"></td>
+                        <td th:text="${item.nss}"></td>
+                        <td th:text="${item.name}"></td>
+                        <td th:text="${item.surname}"></td>
+                        <td th:text="${item.gender}"></td>
+                        <td th:text="${item.age}"></td>
+                        <td th:text="${item.ocupation}"></td>
+                        <td th:text="${item.tlf}"></td>
+                        <td th:text="${item.house}"></td>
+                        <td th:text="${item.observations}"></td>
+                        <td th:text="${item.diseases}"></td>
+                        <td th:text="${item.allergies}"></td>
+                        <td th:text="${#dates.format(item.birthday, 'dd-MMM-yyyy')}"></td>
+                        <td th:text="${#dates.format(item.registerdate, 'dd-MMM-yyyy')}"></td>
                     </ul>
                 </div>
             </div>
+            -->
 
-            <div class="row">
                 <div class="col-sm">
-                    <div class="table-responsive">
+                    <div class="table-responsive table">
                         <table class="table table-bordered">
-                            <thead>
+                            <thead class="thead-dark">
                             <tr>
                                 <th scope="col">Date</th>
                                 <th scope="col">DNI</th>
@@ -66,20 +194,17 @@
 
                             <tr th:each="entry:${userentries}">
                                 <!-- formato: 'dd-MM-yyyy' = 04-04-2018; formato: 'dd-MMM-yyyy' = 04-abr-2018 -->
-                                <td th:text="${#dates.format(entry.date, 'dd-MMM-yyyy')}"></td>
-                                <td th:text="${entry.patientDni}"></td>
-                                <td th:text="${entry.observations}"></td>
+                                <td  scope="row"><strong th:text="${#dates.format(entry.date, 'dd-MMM-yyyy')}"></strong></td>
+                                <td><strong th:text="${entry.patientDni}"></strong></td>
+                                <td><strong th:text="${entry.observations}"></strong></td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-
-
-
-            <div class="mastfoot">
-                <div class="inner">
+            <div class="mastfoot row cover-container padre">
+                <div class="inner hijo" style="margin: 0 auto;">
                     <div th:replace="fragments/footer :: footer"/>
                 </div>
             </div>

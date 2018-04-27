@@ -85,12 +85,58 @@
         }
 
     </script>
+    <div th:replace="fragments/header :: header-css"/>
+
+    <style>
+        body{
+            color: white !important;
+            /*text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);*/
+        }
+
+        table{
+            color: black;
+        }
+        .padre {
+            text-align: center;
+            width: 100%;
+        }
+
+        .hijo {
+            display: inline-block;
+        }
+
+        .izquierda{
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
+<div class="site-wrapper">
+    <div class="site-wrapper-inner">
+
+
+        <div class="row cover-container" style="margin-top: -10%;">
+            <div class="masthead clearfix">
+                <div class="inner">
+                    <h3 class="masthead-brand">MDAYAS</h3>
+                    <nav class="nav nav-masthead">
+                        <a class="nav-link" th:href="@{/}">HOME</a>
+                        <a class="nav-link" href="https://github.com/MYF95/records-mda">Github</a>
+                        <a class="nav-link" href="https://dashboard.heroku.com/apps">Heroku</a>
+                        <a class="nav-link" th:href="@{/about}">About</a>
+                        <a class="nav-link" th:href="@{/history}">History Entries</a>
+                        <a class="nav-link" th:href="@{/logout}">Logout</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+
+
     <div class="container">
         <div class="row">
             <div class="col-sm">
-                <h1 style="border-bottom: 1px solid black;">Patient records</h1>
+                <h1 style="margin-bottom: 5%;">Patient records</h1>
             </div>
         </div>
 
@@ -109,9 +155,9 @@
 
         <div class="row">
             <div class="col-sm">
-                <div class="table-responsive">
+                <div class="table-responsive table">
                     <table class="table table-bordered">
-                        <thead>
+                        <thead class="thead-dark">
                             <tr>
                                 <th scope="col">Date</th>
                                 <th scope="col">DNI</th>
@@ -123,7 +169,7 @@
 
                         <tr th:each="entry:${entries}">
                             <!-- formato: 'dd-MM-yyyy' = 04-04-2018; formato: 'dd-MMM-yyyy' = 04-abr-2018 -->
-                            <td th:text="${#dates.format(entry.date, 'dd-MMM-yyyy')}"></td>
+                            <td scope="row" th:text="${#dates.format(entry.date, 'dd-MMM-yyyy')}"></td>
                             <td th:text="${entry.patientDni}"></td>
                             <td th:text="${entry.observations}"></td>
                             <td>
@@ -141,6 +187,16 @@
                     </div>
                 </div>
             </div>
+
+        <div class="mastfoot row padre cover container">
+            <div class="inner hijo" style="margin: 0 auto;">
+                <div th:replace="fragments/footer :: footer"/>
+            </div>
         </div>
+
+
+        </div>
+    </div>
+</div>
     </body>
     </html>

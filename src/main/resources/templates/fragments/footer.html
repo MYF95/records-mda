@@ -7,17 +7,17 @@
 
     <div class="site-wrapper-inner">
 
-        <div class="cover-container">
+        <div class="container">
 <div th:fragment="footer">
 
     <div class="container">
 
         <footer>
             <!-- this is footer -->
-            <p><a href="">© 2018 MDAYAS</a> - HISTORY ENTRY - MDA</p>
+            <p><a href="">© 2018 MDAYAS</a> - HISTORY ENTRIES - MDA</p>
             <span sec:authorize="isAuthenticated()">
-                | Logged user: <span sec:authentication="name"></span> |
-                Roles: <span sec:authentication="principal.authorities"></span> |
+                Logged user: <span sec:authentication="name"></span> |
+                Roles: <span sec:authentication="principal.authorities"></span>
             </span>
 
             <script type="text/javascript"

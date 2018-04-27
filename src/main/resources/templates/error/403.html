@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <div th:replace="fragments/header :: header-css"/>
 </head>
@@ -19,6 +19,10 @@
                         <a class="nav-link" href="https://github.com/MYF95/records-mda">Github</a>
                         <a class="nav-link" href="https://dashboard.heroku.com/apps">Heroku</a>
                         <a class="nav-link" th:href="@{/about}">About</a>
+                        <a class="nav-link" sec:authorize="hasRole('ROLE_USER')" th:href="@{/user}">History Entries</a>
+                        <a class="nav-link" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/history}">History Entries</a>
+                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
+                        <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
                     </nav>
                 </div>
             </div>
