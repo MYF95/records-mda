@@ -17,10 +17,12 @@ import java.io.IOException;
 import java.util.*;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 
-@Controller
+@RestController
+@RequestMapping("/")
 public class DefaultController  {
 
     @Autowired
@@ -28,22 +30,13 @@ public class DefaultController  {
     @Autowired
     private UserEntryRepository userEntryRepository;
 
-    @GetMapping("/")
-    public String home1() {
-        return "/index";
-    }
-
-    @GetMapping("/home")
-    public String home() {
-        return "/home";
-    }
-
-    @GetMapping("/admin")
-    public String admin() {
-        return "/admin";
-    }
-
     @GetMapping()
+    public ModelAndView home1() {
+        ModelAndView modelAndView = new ModelAndView("index");
+        return modelAndView;
+    }
+
+    @GetMapping("/user")
     public ModelAndView getUserHistory(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
@@ -62,18 +55,21 @@ public class DefaultController  {
     }
 
     @GetMapping("/about")
-    public String about() {
-        return "/about";
+    public ModelAndView about() {
+        ModelAndView modelAndView = new ModelAndView("about");
+        return modelAndView;
     }
 
     @GetMapping("/login")
-    public String login() {
-        return "/login";
+    public ModelAndView login() {
+        ModelAndView modelAndView = new ModelAndView("login");
+        return modelAndView;
     }
 
     @GetMapping("/403")
-    public String error403() {
-        return "/error/403";
+    public ModelAndView error403() {
+        ModelAndView modelAndView = new ModelAndView("error/403");
+        return modelAndView;
     }
 
     @RequestMapping("/success")
