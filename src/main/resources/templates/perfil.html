@@ -36,7 +36,7 @@
                 title: 'Fill the following fields! Entry ID: ' + id,
                 html:
                 '<input id="swal-input1" class="swal2-input" pattern="[0-9]{8}[A-Za-z]{1}" title="Example: 12345678S" required placeholder="'+ dnip +'" value="'+ dnip + '">' +
-                '<input id="swal-input2" class="swal2-input" minlength="5" maxlength="40" title="Must be between 5 and 40 characters" required placeholder="'+ obsp +'" value="'+ obsp + '">',
+                '<input id="swal-input2" class="swal2-input" minlength="5" maxlength="250" title="Must be between 5 and 250 characters" required placeholder="'+ obsp +'" value="'+ obsp + '">',
                 showCancelButton: true,
                 focusConfirm: false,
                 type: "warning",
@@ -66,7 +66,7 @@
             document.getElementById("mintam").style.display = "none";
             document.getElementById("maxtam").style.display = "none";
             regexDNI = /^\d{8}[a-zA-Z]$/;
-            if(regexDNI.test(dni) && obs.length >= 5 && obs.length <= 40){
+            if(regexDNI.test(dni) && obs.length >= 5 && obs.length <= 250){
                 return true;
             }
             if(!regexDNI.test(dni)){
@@ -77,9 +77,9 @@
                 document.getElementById("mintam").style.display = "block";
                 document.getElementById("mintam").innerHTML = "Error! The obervations have less than 5 characters. Try again!";
             }
-            if(obs.length > 40){
+            if(obs.length > 250){
                 document.getElementById("maxtam").style.display = "block";
-                document.getElementById("maxtam").innerHTML = "Error! The observations have more than 40 characters. Try again!";
+                document.getElementById("maxtam").innerHTML = "Error! The observations have more than 250 characters. Try again!";
             }
             return false;
         }
