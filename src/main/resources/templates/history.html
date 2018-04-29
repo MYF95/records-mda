@@ -35,7 +35,7 @@
                 title: 'Fill the following fields! Entry ID: ' + id,
                 html:
                 '<input id="swal-input1" class="swal2-input" pattern="[0-9]{8}[A-Za-z]{1}" title="Example: 12345678S" required placeholder="'+ dnip +'" value="'+ dnip + '">' +
-                '<input id="swal-input2" class="swal2-input" minlength="5" maxlength="40" title="Must be between 5 and 40 characters" required placeholder="'+ obsp +'" value="'+ obsp + '">',
+                '<input id="swal-input2" class="swal2-input" minlength="5" maxlength="250" title="Must be between 5 and 250 characters" required placeholder="'+ obsp +'" value="'+ obsp + '">',
                 showCancelButton: true,
                 focusConfirm: false,
                 type: "warning",
@@ -92,7 +92,7 @@
             document.getElementById("mintam").style.display = "none";
             document.getElementById("maxtam").style.display = "none";
             regexDNI = /^\d{8}[a-zA-Z]$/;
-            if(regexDNI.test(dni) && obs.length >= 5 && obs.length <= 40){
+            if(regexDNI.test(dni) && obs.length >= 5 && obs.length <= 250){
                 return true;
             }
             if(!regexDNI.test(dni)){
@@ -101,11 +101,11 @@
             }
             if(obs.length < 5){
                 document.getElementById("mintam").style.display = "block";
-                document.getElementById("mintam").innerHTML = "Error! The obervations have less than 5 characters. Try again!";
+                document.getElementById("mintam").innerHTML = "Error! The observations have less than 5 characters. Try again!";
             }
             if(obs.length > 40){
                 document.getElementById("maxtam").style.display = "block";
-                document.getElementById("maxtam").innerHTML = "Error! The observations have more than 40 characters. Try again!";
+                document.getElementById("maxtam").innerHTML = "Error! The observations have more than 250 characters. Try again!";
             }
             return false;
         }
@@ -136,6 +136,14 @@
 
         table{
             color: black;
+            table-layout: auto;
+            width: 100%;
+        }
+
+        .observaciones{
+            width: 60%;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
         .padre {
             text-align: center;
@@ -215,7 +223,7 @@
                     </div>
                     <div class="form-group col-md izquierda">
                         <label for="obs">Observation</label>
-                        <input type="text" class="form-control" id="obs" name="obs" placeholder="Observation" minlength="5" maxlength="40" title="Must be between 5 and 40 characters" required>
+                        <input type="text" class="form-control" id="obs" name="obs" placeholder="Observation" minlength="5" maxlength="250" title="Must be between 5 and 250 characters" required>
                     </div>
                     <div class="form-group col-md" style="margin-top: auto;">
                         <button class="btn btn-success"  onclick="addEntry(document.getElementById('dni').value,document.getElementById('obs').value)"><i class="fa fa-plus"> ADD ENTRY</i></button>
@@ -251,11 +259,10 @@
 
 
                                 <tr th:each="entry:${entries}">
-                                        <!-- formato: 'dd-MM-yyyy' = 04-04-2018; formato: 'dd-MMM-yyyy' = 04-abr-2018 -->
+                                        <!-- formato: 'dd-MM-yyyy' = 04-04-2018; formato: 'dd-MMM-yyyy' = 04-abr-2018"> -->
                                         <td scope="row" th:text="${#dates.format(entry.date, 'dd-MMM-yyyy')}"></td>
-                                        <td th:text="${entry.patientDni}" th:onclick="'goToUser(\''+${entry.patientDni}+ '\')'">
-                                        </td>
-                                        <td th:text="${entry.observations}"></td>
+                                        <td th:text="${entry.patientDni}" th:onclick="'goToUser(\''+${entry.patientDni}+ '\')'"></td>
+                                        <td class="observaciones" th:text="${entry.observations}"></td>
                                         <td>
                                             <button class="btn btn-info" th:onclick="'editEntry(\''+${entry.id}+ '\',\''+${entry.patientDni}+'\',\''+${entry.observations}+'\')'">
                                                 <i class="fa fa-pencil"></i>
