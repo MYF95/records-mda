@@ -79,7 +79,10 @@
             <div class="margenes-peq"></div>
             <div class="inner cover padre row cover-container">
                 <div class="hijo" style="margin: 0 auto;">
-                    <h2 th:inline="text">Records of patient: [[${#httpServletRequest.remoteUser}]]</h2>
+                    <tr th:each="item : ${userinfo}">
+                        <h2 th:text="${item.patientDni}"><h2>
+                    </tr>
+
                 </div>
             </div>
             <div class="margenes-peq"></div>

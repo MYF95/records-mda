@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import com.example.springbootrecords.history.model.HistoryEntryRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.ServletException;
@@ -46,6 +47,23 @@ public class DefaultController  {
                         .orElse(new ArrayList<>());
         List<UserEntry> userEntries =
                 Optional.ofNullable(userEntryRepository.findAllByPatientDni(name))
+                        .orElse(new ArrayList<>());
+        Map<String, Object> myModel = new HashMap<String, Object>();
+        myModel.put("userentries", historyEntries);
+        myModel.put("userinfo", userEntries);
+        modelAndView.addAllObjects(myModel);
+        return modelAndView;
+    }
+
+    @GetMapping("/user/{dni}")
+
+    public ModelAndView getUserHistoryFromDoc(@PathVariable String dni){
+        ModelAndView modelAndView = new ModelAndView("user");
+        List<HistoryEntry> historyEntries =
+                Optional.ofNullable(historyEntryRepository.findAllByPatientDni(dni))
+                        .orElse(new ArrayList<>());
+        List<UserEntry> userEntries =
+                Optional.ofNullable(userEntryRepository.findAllByPatientDni(dni))
                         .orElse(new ArrayList<>());
         Map<String, Object> myModel = new HashMap<String, Object>();
         myModel.put("userentries", historyEntries);
