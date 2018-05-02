@@ -18,11 +18,19 @@ public class HistoryController {
     private HistoryEntryRepository historyEntryRepository;
 
     @GetMapping()
-    public ModelAndView getHistory(){
+    public ModelAndView getHistoryDesc(@RequestParam(value = "sort", defaultValue = "desc") String sortMethod){
         ModelAndView modelAndView = new ModelAndView("history");
-        List<HistoryEntry> historyEntries =
-                Optional.ofNullable(historyEntryRepository.findAll())
-                        .orElse(new ArrayList<>());
+        List<HistoryEntry> historyEntries;
+        if (sortMethod.equals("desc")){
+                historyEntries =
+                        Optional.ofNullable(historyEntryRepository.findAllByOrderByDateDesc())
+                                .orElse(new ArrayList<>());
+        } else{
+            historyEntries =
+                    Optional.ofNullable(historyEntryRepository.findAllByOrderByDateAsc())
+                            .orElse(new ArrayList<>());
+
+        }
         modelAndView.addObject("entries", historyEntries);
         return modelAndView;
     }
