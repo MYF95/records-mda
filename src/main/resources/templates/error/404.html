@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+<div class="site-wrapper">
+
+    <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+            <div class="masthead clearfix">
+                <div class="inner">
+                    <h3 class="masthead-brand">Oops!</h3>
+                    <nav class="nav nav-masthead">
+                        <a class="nav-link active" th:href="@{/}">HOME</a>
+                        <a class="nav-link" href="https://github.com/MYF95/records-mda">Github</a>
+                        <a class="nav-link" href="https://dashboard.heroku.com/apps">Heroku</a>
+                        <a class="nav-link" th:href="@{/about}">About</a>
+                        <a class="nav-link" sec:authorize="hasRole('ROLE_USER')" th:href="@{/user}">History Entries</a>
+                        <a class="nav-link" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/history}">History Entries</a>
+                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}">Logout</a>
+                        <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="inner cover">
+                <h1 class="cover-heading">404 - Page not found</h1>
+                <div th:inline="text">It seems like you're exploring an unknown place!</div>
+            </div>
+
+
+            <div class="mastfoot">
+                <div class="inner">
+                    <div th:replace="fragments/footer :: footer"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

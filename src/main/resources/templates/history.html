@@ -84,6 +84,16 @@
             window.location.href = '/history/date/'+date;
         }
 
+        function sortAsc(){
+            window.location.href = '/history?sort=asc';
+        }
+
+        function sortDesc() {
+            window.location.href = '/history?sort=desc';
+        }
+
+
+
         function validateForm(dni,obs){
             document.getElementById("dniformat").innerHTML = "";
             document.getElementById("mintam").innerHTML = "";
@@ -240,6 +250,20 @@
                             <div id="maxtam" class="alert alert-danger fade in" style="display: none;">
                             </div>
                         </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm">
+                        <button class="btn btn-warning" th:onclick="'sortAsc()'">
+                            <i class="fa fa-sort-asc"></i>
+                        </button>
+                    </div>
+                    <div class="col-sm"></div>
+                        <button class="btn btn-danger" th:onclick="'sortDesc()'">
+                            <i class="fa fa-sort-desc"></i>
+                        </button>
                     </div>
                 </div>
 

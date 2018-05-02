@@ -10,4 +10,9 @@ public interface HistoryEntryRepository extends JpaRepository<HistoryEntry, Inte
     List<HistoryEntry> findAllByPatientDniOrderByDateDesc(String patientDni);
     List<HistoryEntry> findAllByDateBetween(Date date, Date date2);
     List<HistoryEntry> findAllByPatientDni(String patientDni);
+
+
+    List<HistoryEntry> findAllByOrderByDateAsc();
+    List<HistoryEntry> findAllByOrderByDateDesc();
+
 }
