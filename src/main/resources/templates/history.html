@@ -6,10 +6,12 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <script src="https://unpkg.com/sweetalert2@7.15.1/dist/sweetalert2.all.js"></script>
+
+
+
     <script>
         function deleteEntry(id){
             swal({
@@ -162,24 +164,23 @@
 <body>
     <div class="site-wrapper">
         <div class="site-wrapper-inner">
-            <div class="container">
-
-                <div class="row cover-container" style="margin-top: -10%;">
-                    <div class="masthead clearfix">
-                        <div class="inner">
-                            <h3 class="masthead-brand">MDAYAS</h3>
-                            <nav class="nav nav-masthead">
-                                <a class="nav-link" th:href="@{/}">HOME</a>
-                                <a class="nav-link" href="https://github.com/MYF95/records-mda">Github</a>
-                                <a class="nav-link" href="https://dashboard.heroku.com/apps">Heroku</a>
-                                <a class="nav-link" th:href="@{/about}">About</a>
-                                <a class="nav-link" th:href="@{/history}">History Entries</a>
-                                <a class="nav-link" th:href="@{/logout}">Logout</a>
-                            </nav>
-                        </div>
+            <div class="row cover-container" style="margin-bottom: 10%;">
+                <div class="masthead clearfix">
+                    <div class="inner">
+                        <h3 class="masthead-brand">MDAYAS</h3>
+                        <nav class="nav nav-masthead">
+                            <a class="nav-link" th:href="@{/}">HOME</a>
+                            <a class="nav-link" href="https://github.com/MYF95/records-mda">Github</a>
+                            <a class="nav-link" href="https://dashboard.heroku.com/apps">Heroku</a>
+                            <a class="nav-link" th:href="@{/about}">About</a>
+                            <a class="nav-link" th:href="@{/history}">History Entries</a>
+                            <a class="nav-link" th:href="@{/logout}">Logout</a>
+                        </nav>
                     </div>
                 </div>
+            </div>
 
+            <div class="container">
 
                 <div class="row" style="margin-bottom: 2%;">
                     <div class="col-sm">
@@ -278,6 +279,14 @@
                         </div>
                     </div>
 
+                    <div class="row">
+                        <h1>Disponibilidad</h1>
+                    </div>
+
+                    <div class="row">
+                        <div id="calendar" th:onload="'doCalendar()'"></div>
+                    </div>
+
                     <div class="mastfoot row padre cover container">
                         <div class="inner hijo" style="margin: 0 auto;">
                             <div th:replace="fragments/footer :: footer"/>
@@ -287,5 +296,12 @@
                 </div>
             </div>
         </div>
+        <script th:inline="javascript">
+            $(document).ready(function(){
+                $('#calendar').fullCalendar({
+                    events : '/history/calendarEvents'
+                });
+            });
+        </script>
     </body>
     </html>

@@ -1,7 +1,9 @@
 package com.example.springbootrecords.history;
 
+import com.example.springbootrecords.history.model.CalendarEvent;
 import com.example.springbootrecords.history.model.HistoryEntry;
 import com.example.springbootrecords.history.model.HistoryEntryRepository;
+import org.aspectj.weaver.patterns.HasThisTypePatternTriedToSneakInSomeGenericOrParameterizedTypePatternMatchingStuffAnywhereVisitor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -81,6 +83,20 @@ public class HistoryController {
                         .orElse(new ArrayList<>());
         modelAndView.addObject("entries", historyEntries);
         return modelAndView;
+    }
+
+    @GetMapping("/calendarEvents")
+    public String getCalendarEvents(){
+        List<HistoryEntry> historyEntries =
+            Optional.ofNullable(historyEntryRepository.findAll())
+                    .orElse(new ArrayList<>());
+        String json = historyEntries
+                .stream()
+                .map( entry -> new CalendarEvent(entry.getPatientDni(), entry.getDate()).toString())
+                .reduce("", (a, b) -> a + "," + b);
+
+        return "[" + json.replaceFirst(",", "") + "]";
+
     }
 
 }
