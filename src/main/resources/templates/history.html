@@ -143,7 +143,32 @@
     <style>
         body{
             color: white !important;
+            font-size: 14px;
             /*text-shadow: 0 .05rem .1rem rgba(0,0,0,.5);*/
+        }
+
+        #addEntry{
+            font-size: 16px;
+            margin-left: -40%;
+            width: 200px;
+            height: auto;
+        }
+
+        label{
+            margin-left: 0px;
+            font-size: 16px;
+        }
+
+        .btn-secondary{
+            font-size: 14px;
+            width: 120px;
+            height: 34px;
+            margin-left: -60%;
+            background-color: #17a2b8;
+        }
+
+        input[type="text"],input[type="date"]{
+            font-size: 16px;
         }
 
         table{
@@ -194,7 +219,7 @@
 
                 <div class="row" style="margin-bottom: 2%;">
                     <div class="col-sm">
-                        <h1 class="cover-heading">Patient records</h1>
+                        <h1 class="cover-heading" style="font-size: 30px">Patient records</h1>
                     </div>
                 </div>
 
@@ -237,7 +262,7 @@
                         <input type="text" class="form-control" id="obs" name="obs" placeholder="Observation" minlength="5" maxlength="250" title="Must be between 5 and 250 characters" required>
                     </div>
                     <div class="form-group col-md" style="margin-top: auto;">
-                        <button class="btn btn-success"  onclick="addEntry(document.getElementById('dni').value,document.getElementById('obs').value)"><i class="fa fa-plus"> ADD ENTRY</i></button>
+                        <button class="btn btn-success" id="addEntry" onclick="addEntry(document.getElementById('dni').value,document.getElementById('obs').value)"><i class="fa fa-plus"> ADD ENTRY</i></button>
                     </div>
                 </div>
 
@@ -254,27 +279,17 @@
                     </div>
                 </div>
 
-
-                <div class="row">
-                    <div class="col-sm">
-                        <button class="btn btn-warning" th:onclick="'sortAsc()'">
-                            <i class="fa fa-sort-asc"></i>
-                        </button>
-                    </div>
-                    <div class="col-sm"></div>
-                        <button class="btn btn-danger" th:onclick="'sortDesc()'">
-                            <i class="fa fa-sort-desc"></i>
-                        </button>
-                    </div>
-                </div>
-
                 <div class="row">
                     <div class="col-sm">
                         <div class="table-responsive table">
                             <table class="table table-bordered">
                                 <thead class="thead-dark">
                                     <tr>
-                                        <th scope="col">Date</th>
+                                        <th scope="col">Date<button class="btn btn-warning" th:onclick="'sortAsc()'">
+                                            <i class="fa fa-sort-asc"></i>
+                                        </button><button class="btn btn-danger" th:onclick="'sortDesc()'">
+                                            <i class="fa fa-sort-desc"></i>
+                                        </button></th>
                                         <th scope="col">DNI</th>
                                         <th scope="col">Observations</th>
                                         <th scope="col">Options</th>
@@ -304,7 +319,7 @@
                     </div>
 
                     <div class="row">
-                        <h1>Disponibilidad</h1>
+                        <h1>Availability</h1>
                     </div>
 
                     <div class="row">
