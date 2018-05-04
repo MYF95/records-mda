@@ -159,6 +159,11 @@
             font-size: 16px;
         }
 
+        .margin{
+            margin-top: 2%;
+            margin-bottom: 2%;
+        }
+
         .btn-secondary{
             font-size: 14px;
             width: 120px;
@@ -194,12 +199,44 @@
         .izquierda{
             text-align: left;
         }
+
+        @media (min-width: 40em) {
+            /* Pull out the header and footer */
+            .masthead {
+                position: relative !important;
+                top: 0;
+            }
+            .mastfoot {
+                position: relative !important;
+                bottom: 0;
+            }
+            /* Start the vertical centering */
+            .site-wrapper-inner {
+                vertical-align: middle;
+            }
+            /* Handle the widths */
+            .masthead,
+            .mastfoot,
+            .cover-container {
+                width: 100%; /* Must be percentage or pixels for horizontal alignment */
+            }
+            .padre {
+                text-align: center;
+                width: 100%;
+            }
+
+            .hijo {
+                display: inline-block;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="site-wrapper">
         <div class="site-wrapper-inner">
-            <div class="row cover-container" style="margin-bottom: 10%;">
+
+            <div class="container">
+
                 <div class="masthead clearfix">
                     <div class="inner">
                         <h3 class="masthead-brand">MDAYAS</h3>
@@ -213,16 +250,13 @@
                         </nav>
                     </div>
                 </div>
-            </div>
-
-            <div class="container">
-
+                <div class="margin"></div>
                 <div class="row" style="margin-bottom: 2%;">
                     <div class="col-sm">
                         <h1 class="cover-heading" style="font-size: 30px">Patient records</h1>
                     </div>
                 </div>
-
+                <div class="margin"></div>
                 <div class="row">
                     <div class="col-sm">
                         <h3>Search</h3>
@@ -245,7 +279,7 @@
                         <button class="btn btn-secondary"  onclick="showEntriesDate(document.getElementById('date').value)"><i class="fa fa-search"> Search by Date </i></button>
                     </div>
                 </div>
-
+                <div class="margin"></div>
                 <div class="row">
                     <div class="col-sm">
                         <h3>Add new entry</h3>
@@ -265,7 +299,7 @@
                         <button class="btn btn-success" id="addEntry" onclick="addEntry(document.getElementById('dni').value,document.getElementById('obs').value)"><i class="fa fa-plus"> ADD ENTRY</i></button>
                     </div>
                 </div>
-
+                <div class="margin"></div>
                 <div class="row" style="margin-bottom: 2%;">
                     <div class="col-sm">
                         <div id ="errors">
@@ -278,7 +312,7 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="margin"></div>
                 <div class="row">
                     <div class="col-sm">
                         <div class="table-responsive table">
@@ -310,6 +344,9 @@
                                             <button class="btn btn-danger" th:onclick="'deleteEntry(' + ${entry.id} + ')'">
                                                 <i class="fa fa-trash"></i>
                                             </button>
+                                            <button class="btn btn-warning" th:onclick="'goToUser(\''+${entry.patientDni}+ '\')'">
+                                                <i class="fa fa-user"></i>
+                                            </button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -317,7 +354,7 @@
                             </div>
                         </div>
                     </div>
-
+                <div class="margin"></div>
                     <div class="row">
                         <h1>Availability</h1>
                     </div>
