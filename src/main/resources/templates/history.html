@@ -83,6 +83,13 @@
         }
 
         function showEntriesDate(date){
+            document.getElementById("dniformat").innerHTML = "";
+            document.getElementById("dniformat").style.display = "none";
+            if(!date) {
+                document.getElementById("dniformat").style.display = "block";
+                document.getElementById("dniformat").innerHTML = "Error! The Date is required. Try again!";
+                return;
+            }
             window.location.href = '/history/date/'+date;
         }
 
