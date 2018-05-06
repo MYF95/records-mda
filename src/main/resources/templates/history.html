@@ -79,7 +79,20 @@
 
         function showEntries(dni){
             if (!validateDni(dni)) return;
+            if (!checkEntries(dni)) return;
             window.location.href = '/history/'+dni;
+        }
+
+        function checkEntries(dni){
+            document.getElementById("emptyEntry").innerHTML = "";
+            document.getElementById("emptyEntry").style.display = "none";
+            if($("td:contains("+dni+")").length > 0){
+                return true;
+            } else {
+                document.getElementById("emptyEntry").style.display = "block";
+                document.getElementById("emptyEntry").innerHTML = "The DNI selected has no entries";
+            }
+            return false;
         }
 
         function showEntriesDate(date){
@@ -116,7 +129,7 @@
             }
             if(!regexDNI.test(dni)){
                 document.getElementById("dniformat").style.display = "block";
-                document.getElementById("dniformat").innerHTML = "Error! The DNI doesn't have de correct format. Try again!";
+                document.getElementById("dniformat").innerHTML = "Error! The DNI doesn't have the correct format. Try again!";
             }
             if(obs.length < 5){
                 document.getElementById("mintam").style.display = "block";
@@ -137,7 +150,7 @@
                 return true;
             }
             document.getElementById("dniformat").style.display = "block";
-            document.getElementById("dniformat").innerHTML = "Error! The DNI doesn't have de correct format. Try again!";
+            document.getElementById("dniformat").innerHTML = "Error! The DNI doesn't have the correct format. Try again!";
             return false;
         }
         
@@ -316,6 +329,8 @@
                             </div>
                             <div id="maxtam" class="alert alert-danger fade in" style="display: none;">
                             </div>
+                            <div id="emptyEntry" class="alert alert-danger fade in" style="display: none">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -337,7 +352,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
 
                                 <tr th:each="entry:${entries}">
                                         <!-- formato: 'dd-MM-yyyy' = 04-04-2018; formato: 'dd-MMM-yyyy' = 04-abr-2018"> -->
