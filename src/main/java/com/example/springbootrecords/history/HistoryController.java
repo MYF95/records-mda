@@ -37,12 +37,13 @@ public class HistoryController {
         return modelAndView;
     }
 
-    @PostMapping("/addEntry/{dni}/{observations}")
-    public ResponseEntity<?> addEntry(@PathVariable String dni, @PathVariable String observations){
+    @PostMapping("/addEntry/{dni}/{observations}/{tratamiento}")
+    public ResponseEntity<?> addEntry(@PathVariable String dni, @PathVariable String observations, @PathVariable String tratamiento){
         HistoryEntry historyEntry = new HistoryEntry();
         historyEntry.setDate(new Date());
         historyEntry.setObservations(observations);
         historyEntry.setPatientDni(dni);
+        historyEntry.setTratamiento(tratamiento);
 
         historyEntryRepository.save(historyEntry);
 
@@ -55,12 +56,13 @@ public class HistoryController {
         return "ok";
     }
 
-    @PostMapping("/modifyEntry/{id}/{dni}/{observations}")
-    public ResponseEntity<?> modifyEntry(@PathVariable int id, @PathVariable String dni, @PathVariable String observations){
+    @PostMapping("/modifyEntry/{id}/{dni}/{observations}/{tratamiento}")
+    public ResponseEntity<?> modifyEntry(@PathVariable int id, @PathVariable String dni, @PathVariable String observations, @PathVariable String tratamiento){
         HistoryEntry historyEntry = historyEntryRepository.getOne(id);
         historyEntry.setDate(new Date());
         historyEntry.setObservations(observations);
         historyEntry.setPatientDni(dni);
+        historyEntry.setTratamiento(tratamiento);
         historyEntryRepository.save(historyEntry);
         return ResponseEntity.ok().build();
     }
@@ -74,7 +76,6 @@ public class HistoryController {
         modelAndView.addObject("entries", historyEntries);
         return modelAndView;
     }
-
 
     @GetMapping("/date/{date}")
     public ModelAndView getSearchDate(@DateTimeFormat(pattern = "yyyy-MM-dd")@PathVariable Date date){

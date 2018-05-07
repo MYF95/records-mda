@@ -70,7 +70,8 @@
                             <a class="nav-link" href="https://github.com/MYF95/records-mda">Github</a>
                             <a class="nav-link" href="https://dashboard.heroku.com/apps">Heroku</a>
                             <a class="nav-link" th:href="@{/about}">About</a>
-                            <a class="nav-link" th:href="@{/user}">History Entries</a>
+                            <a class="nav-link" th:href="@{/user}">Perfil</a>
+                            <a class="nav-link" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/history}">History Entries</a>
                             <a class="nav-link" th:href="@{/logout}">Logout</a>
                         </nav>
                     </div>
@@ -182,7 +183,7 @@
             </div>
             -->
 
-                <div class="col-sm">
+                <div  sec:authorize="hasRole('ROLE_USER')" class="col-sm">
                     <div class="table-responsive table">
                         <table class="table table-bordered">
                             <thead class="thead-dark">
@@ -190,6 +191,7 @@
                                 <th scope="col">Date</th>
                                 <th scope="col">DNI</th>
                                 <th scope="col">Observations</th>
+                                <th scope="col">Treatment</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -200,6 +202,7 @@
                                 <td  scope="row"><strong th:text="${#dates.format(entry.date, 'dd-MMM-yyyy')}"></strong></td>
                                 <td><strong th:text="${entry.patientDni}"></strong></td>
                                 <td><strong th:text="${entry.observations}"></strong></td>
+                                <td><strong th:text="${entry.tratamiento}"></strong></td>
                             </tr>
                             </tbody>
                         </table>

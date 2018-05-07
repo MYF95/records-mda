@@ -4,6 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.LinkedList;
 
 @Entity
 public class HistoryEntry {
@@ -14,6 +15,16 @@ public class HistoryEntry {
     private String patientDni;
 
     private String observations;
+
+    private String tratamiento;
+
+    public String getTratamiento() {
+        return tratamiento;
+    }
+
+    public void setTratamiento(String tratamiento) {
+        this.tratamiento = tratamiento;
+    }
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;

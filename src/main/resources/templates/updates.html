@@ -54,24 +54,22 @@
                 var dni = document.getElementById('swal-input1').value;
                 var obs = document.getElementById('swal-input2').value;
                 var trata = document.getElementById('swal-input3').value;
-                if (!validateForm(dni,obs,trata)) return;
+                if (!validateForm(dni,obs)) return;
                 $.post("/history/modifyEntry/" + id + "/" + dni + "/" + obs + "/" + trata, function (data) {
                     location.reload();
                 });
             }).catch(swal.noop)
         }
 
-        function validateForm(dni,obs,tratamiento){
+        function validateForm(dni,obs){
             document.getElementById("dniformat").innerHTML = "";
-            document.getElementById("trataformat").innerHTML = "";
             document.getElementById("mintam").innerHTML = "";
             document.getElementById("maxtam").innerHTML = "";
             document.getElementById("dniformat").style.display = "none";
             document.getElementById("mintam").style.display = "none";
             document.getElementById("maxtam").style.display = "none";
-            document.getElementById("trataformat").style.display = "none";
             regexDNI = /^\d{8}[a-zA-Z]$/;
-            if(regexDNI.test(dni) && obs.length >= 5 && obs.length <= 250 && tratamiento.length >= 5 && tratamiento.length <= 250){
+            if(regexDNI.test(dni) && obs.length >= 5 && obs.length <= 250){
                 return true;
             }
             if(!regexDNI.test(dni)){
@@ -85,14 +83,6 @@
             if(obs.length > 250){
                 document.getElementById("maxtam").style.display = "block";
                 document.getElementById("maxtam").innerHTML = "Error! The observations have more than 250 characters. Try again!";
-            }
-            if(tratamiento.length < 5){
-                document.getElementById("mintam").style.display = "block";
-                document.getElementById("mintam").innerHTML = "Error! The treatments have less than 5 characters. Try again!";
-            }
-            if(tratamiento.length > 250){
-                document.getElementById("maxtam").style.display = "block";
-                document.getElementById("maxtam").innerHTML = "Error! The treatments have more than 250 characters. Try again!";
             }
             return false;
         }
@@ -158,35 +148,33 @@
             </div>
         </div>
 
-    <div class="container">
+        <div class="container">
 
 
-        <div class="row" th:if="!${#lists.isEmpty(entries)}">
-            <div class="col-sm">
-                <h1 style="margin-bottom: 5%;">Patient records</h1>
+            <div class="row" th:if="!${#lists.isEmpty(entries)}">
+                <div class="col-sm">
+                    <h1 style="margin-bottom: 5%;">Patient records</h1>
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-sm">
-                <div id ="errors">
-                    <div id="dniformat" class="alert alert-danger fade in" style="display: none;">
-                    </div>
-                    <div id="mintam" class="alert alert-danger fade in" style="display: none;">
-                    </div>
-                    <div id="maxtam" class="alert alert-danger fade in" style="display: none;">
-                    </div>
-                    <div id="trataformat" class="alert alert-danger fade in" style="display: none;">
+            <div class="row">
+                <div class="col-sm">
+                    <div id ="errors">
+                        <div id="dniformat" class="alert alert-danger fade in" style="display: none;">
+                        </div>
+                        <div id="mintam" class="alert alert-danger fade in" style="display: none;">
+                        </div>
+                        <div id="maxtam" class="alert alert-danger fade in" style="display: none;">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-sm">
-                <div class="table-responsive table" th:if="!${#lists.isEmpty(entries)}">
-                    <table class="table table-bordered">
-                        <thead class="thead-dark">
+            <div class="row">
+                <div class="col-sm">
+                    <div class="table-responsive table" th:if="!${#lists.isEmpty(userentries)}">
+                        <table class="table table-bordered">
+                            <thead class="thead-dark">
                             <tr>
                                 <th scope="col">Date</th>
                                 <th scope="col">DNI</th>
@@ -194,46 +182,71 @@
                                 <th scope="col">Treatment</th>
                                 <th scope="col">Options</th>
                             </tr>
-                        </thead>
-                        <tbody>
+                            </thead>
+                            <tbody>
 
-                        <tr th:each="entry:${entries}">
-                            <!-- formato: 'dd-MM-yyyy' = 04-04-2018; formato: 'dd-MMM-yyyy' = 04-abr-2018 -->
-                            <td scope="row" th:text="${#dates.format(entry.date, 'dd-MMM-yyyy')}"></td>
-                            <td th:text="${entry.patientDni}" th:onclick="'goToUser(\''+${entry.patientDni}+ '\')'"></td>
-                            <td th:text="${entry.observations}"></td>
-                            <td th:text="${entry.tratamiento}"></td>
-                            <td>
-                                <button class="btn btn-info" th:onclick="'editEntry(\''+${entry.id}+ '\',\''+${entry.patientDni}+'\',\''+${entry.observations}+'\',\''+${entry.tratamiento}+'\')'">
-                                    <i class="fa fa-pencil"></i>
-                                </button>
-                                <button class="btn btn-danger" th:onclick="'deleteEntry(' + ${entry.id} + ')'">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                                <button class="btn btn-warning" th:onclick="'goToUser(\''+${entry.patientDni}+ '\')'">
-                                    <i class="fa fa-user"></i>
-                                </button>
+                            <tr th:each="entry:${userentries}">
+                                <!-- formato: 'dd-MM-yyyy' = 04-04-2018; formato: 'dd-MMM-yyyy' = 04-abr-2018 -->
+                                <td scope="row" th:text="${#dates.format(entry.date, 'dd-MMM-yyyy')}"></td>
+                                <td th:text="${entry.patientDni}" th:onclick="'goToUser(\''+${entry.patientDni}+ '\')'"></td>
+                                <td th:text="${entry.observations}"></td>
+                                <td th:text="${entry.tratamiento}"></td>
+                                <td>
+                                    <button class="btn btn-info" th:onclick="'editEntry(\''+${entry.id}+ '\',\''+${entry.patientDni}+'\',\''+${entry.observations}+'\',\''+${entry.tratamiento}+'\')'">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-danger" th:onclick="'deleteEntry(' + ${entry.id} + ')'">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                    <button class="btn btn-warning" th:onclick="'goToUser(\''+${entry.patientDni}+ '\')'">
+                                        <i class="fa fa-user"></i>
+                                    </button>
                                 </td>
                             </tr>
 
                             </tbody>
                         </table>
                     </div>
-                <div th:if="${#lists.isEmpty(entries)}">
-                    <h1 class="cover-heading">NO MEDIC RECORDS AVAILABLE!</h1>
-                </div>
+                    <div th:if="${#lists.isEmpty(userentries)}">
+                        <h1 class="cover-heading">NO MEDIC RECORDS AVAILABLE!</h1>
+                    </div>
                 </div>
             </div>
 
-        <div class="mastfoot row padre cover container">
-            <div class="inner hijo" style="margin: 0 auto;">
-                <div th:replace="fragments/footer :: footer"/>
+            <div class="row">
+                <div class="col-sm">
+                    <div class="table-responsive table" th:if="!${#lists.isEmpty(updates)}">
+                        <table class="table table-bordered">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Updates</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr th:each="entry:${updates}">
+                                <!-- formato: 'dd-MM-yyyy' = 04-04-2018; formato: 'dd-MMM-yyyy' = 04-abr-2018 -->
+                                <td scope="row" th:text="${entry}"></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div th:if="${#lists.isEmpty(updates)}">
+                        <h1 class="cover-heading">NO UPDATES RECORDS AVAILABLE!</h1>
+                    </div>
+                </div>
             </div>
-        </div>
+
+            <div class="mastfoot row padre cover container">
+                <div class="inner hijo" style="margin: 0 auto;">
+                    <div th:replace="fragments/footer :: footer"/>
+                </div>
+            </div>
 
 
         </div>
     </div>
 </div>
-    </body>
-    </html>
+</body>
+</html>

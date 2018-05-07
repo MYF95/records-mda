@@ -23,7 +23,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/home", "/about", "/index").permitAll()
                 .antMatchers("/admin/**").hasAnyRole("ADMIN")
-                .antMatchers("/user").hasAnyRole("USER")
+                .antMatchers("/user").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/user/**").hasAnyRole("ADMIN")
                 .antMatchers("/history/**").hasAnyRole("ADMIN")
                 .anyRequest().authenticated()
@@ -48,7 +48,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .withUser("12345678a").password("{noop}password").roles("USER")
                 .and()
-                .withUser("doctor").password("{noop}password").roles("ADMIN");
+                .withUser("87654321q").password("{noop}password").roles("ADMIN");
     }
 
 
