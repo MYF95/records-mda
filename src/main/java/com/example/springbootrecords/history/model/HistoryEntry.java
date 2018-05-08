@@ -4,7 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.LinkedList;
+
 
 @Entity
 public class HistoryEntry {
@@ -17,6 +17,16 @@ public class HistoryEntry {
     private String observations;
 
     private String tratamiento;
+
+    private String mods;
+
+    public String getMods() {
+        return mods;
+    }
+
+    public void setMods(String mods) {
+        this.mods = mods;
+    }
 
     public String getTratamiento() {
         return tratamiento;

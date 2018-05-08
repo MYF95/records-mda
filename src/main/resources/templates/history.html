@@ -184,8 +184,23 @@
             window.location.href = '/user/'+dni;
         }
 
-        function displayUpdates(id) {
-            window.location.href = '/history/updates/'+id;
+        function displayUpdates(mods) {
+            var splited = mods.split(" - ");
+            //var stringArray = new Array();
+            var final = "";
+            var count = 1;
+            for(var i =0; i < splited.length; i++){
+                final = final + count + "º Modification made by the Doctor in: " + splited[i] + " /// ";
+                count++;
+            }
+            swal({
+                title: 'Modification records',
+                text: final,
+                focusConfirm: true,
+                button: "Okaa!",
+                icon: "info",
+                type: "info"
+            });
         }
 
     </script>
@@ -309,7 +324,7 @@
                 <div class="margin"></div>
                 <div class="row">
                     <div class="col-sm">
-                        <h3>Search</h3>
+                        <h3></h3>
                     </div>
                 </div>
 
@@ -332,7 +347,7 @@
                 <div class="margin"></div>
                 <div class="row">
                     <div class="col-sm">
-                        <h3>Add new entry</h3>
+                        <h3></h3>
                     </div>
                 </div>
 
@@ -377,7 +392,7 @@
                             <table class="table table-bordered">
                                 <thead class="thead-dark">
                                     <tr>
-                                        <th scope="col">Date<button class="btn btn-warning" th:onclick="'sortAsc()'">
+                                        <th scope="col">Date(sort)<button class="btn btn-warning" th:onclick="'sortAsc()'">
                                             <i class="fa fa-sort-asc"></i>
                                         </button><button class="btn btn-danger" th:onclick="'sortDesc()'">
                                             <i class="fa fa-sort-desc"></i>
@@ -406,9 +421,9 @@
                                             <button class="btn btn-warning" th:onclick="'goToUser(\''+${entry.patientDni}+ '\')'">
                                                 <i class="fa fa-user"></i>
                                             </button>
-                                            <!--<button class="btn btn-primary" th:onclick="'displayUpdates(\''+${entry.id}+ '\')'">
+                                            <button class="btn btn-primary" th:onclick="'displayUpdates(\''+${entry.mods}+ '\')'">
                                                 <i class="fa fa-info-circle"></i>
-                                            </button>-->
+                                            </button>
                                             </td>
                                         </tr>
                                     </tbody>

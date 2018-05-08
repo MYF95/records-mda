@@ -3,6 +3,18 @@
 <head>
     <title>MDAYAS - Login</title>
     <div th:replace="fragments/header :: header-css"/>
+    <script>
+        function muestra() {
+            swal({
+                title: 'Users',
+                text: 'Registered user: 87654321q  -> with role: Doctor (admin)  Registered user: 12345678a  -> with role: Patient (user) Registered user: 12321222h  -> with role: Patient (user)  Common pass: password',
+                focusConfirm: true,
+                button: "Okaa!",
+                icon: "info",
+                type: "info"
+            });
+        }
+    </script>
 </head>
 <body>
 
@@ -56,13 +68,23 @@
 
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6">
+
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6">
-                                <div><input type="submit" class="btn btn-lg btn-primary btn-block" style="margin-left: -55%" value="Sign In"/></div>
+                                <div><input type="submit" class="btn btn-lg btn-primary btn-block" style="margin-left: -55%;" value="Sign In"/></div>
                             </div>
                         </div>
                     </fieldset>
                 </form>
+
+                <div class="row" style="margin-top: 4%;">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div><button onclick="muestra()" class="btn btn-lg btn-warning btn-block" style="margin-left: -55%;">Show Credentials</button></div>
+                    </div>
+                </div>
+
             </div>
         </div>
         <div sec:authorize="isAuthenticated()">

@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
@@ -44,7 +46,7 @@ public class HistoryController {
         historyEntry.setObservations(observations);
         historyEntry.setPatientDni(dni);
         historyEntry.setTratamiento(tratamiento);
-
+        historyEntry.setMods("This record has no any modification");
         historyEntryRepository.save(historyEntry);
 
         return ResponseEntity.ok().build();
@@ -59,13 +61,24 @@ public class HistoryController {
     @PostMapping("/modifyEntry/{id}/{dni}/{observations}/{tratamiento}")
     public ResponseEntity<?> modifyEntry(@PathVariable int id, @PathVariable String dni, @PathVariable String observations, @PathVariable String tratamiento){
         HistoryEntry historyEntry = historyEntryRepository.getOne(id);
-        historyEntry.setDate(new Date());
+        //historyEntry.setDate(new Date());
         historyEntry.setObservations(observations);
         historyEntry.setPatientDni(dni);
         historyEntry.setTratamiento(tratamiento);
+        String aux = historyEntry.getMods();
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        Date today = Calendar.getInstance().getTime();
+        String reportDate = df.format(today);
+        if (aux.equals("This record has no any modification") || aux.isEmpty()){
+            historyEntry.setMods(reportDate);
+        }else{
+            String fin = aux + " - " + reportDate;
+            historyEntry.setMods(fin);
+        }
         historyEntryRepository.save(historyEntry);
         return ResponseEntity.ok().build();
     }
+
 
     @GetMapping("/{dni}")
     public ModelAndView getSearch(@PathVariable String dni){
