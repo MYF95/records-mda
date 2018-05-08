@@ -103,6 +103,25 @@
             window.location.href = '/user/'+dni;
         }
 
+        function displayUpdates(mods) {
+            var splited = mods.split(" - ");
+            //var stringArray = new Array();
+            var final = "";
+            var count = 1;
+            for(var i =0; i < splited.length; i++){
+                final = final + count + "º Modification made by the Doctor in: " + splited[i] + " /// ";
+                count++;
+            }
+            swal({
+                title: 'Modification records',
+                text: final,
+                focusConfirm: true,
+                button: "Okaa!",
+                icon: "info",
+                type: "info"
+            });
+        }
+
 
     </script>
     <div th:replace="fragments/header :: header-css"/>
@@ -212,6 +231,9 @@
                                 </button>
                                 <button class="btn btn-warning" th:onclick="'goToUser(\''+${entry.patientDni}+ '\')'">
                                     <i class="fa fa-user"></i>
+                                </button>
+                                <button class="btn btn-primary" th:onclick="'displayUpdates(\''+${entry.mods}+ '\')'">
+                                    <i class="fa fa-info-circle"></i>
                                 </button>
                                 </td>
                             </tr>
